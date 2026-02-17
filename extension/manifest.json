@@ -2,14 +2,14 @@
     "manifest_version": 3,
     "name": "AutoFiller",
     "version": "1.0",
-    "description": "Automatically fills Google Forms using user profile data.",
+    "description": "Universal form autofill using user profile data.",
     "permissions": [
         "activeTab",
         "scripting",
         "storage"
     ],
     "host_permissions": [
-        "https://docs.google.com/forms/*"
+        "<all_urls>"
     ],
     "action": {
         "default_popup": "popup.html"
@@ -17,11 +17,12 @@
     "content_scripts": [
         {
             "matches": [
-                "https://docs.google.com/forms/*"
+                "<all_urls>"
             ],
             "js": [
                 "content.js"
-            ]
+            ],
+            "run_at": "document_idle"
         }
     ]
 }

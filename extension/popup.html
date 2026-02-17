@@ -3,35 +3,88 @@
 <head>
   <style>
     body {
-      width: 200px;
+      width: 240px;
       font-family: Arial, sans-serif;
       padding: 10px;
       text-align: center;
     }
+
+    input, select {
+      width: 100%;
+      margin-bottom: 5px;
+      padding: 6px;
+      font-size: 13px;
+    }
+
     button {
       background-color: #4285f4;
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 8px;
       border-radius: 4px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
+      width: 100%;
+      margin-bottom: 5px;
     }
+
     button:hover {
       background-color: #357ae8;
+    }
+
+    #profile-section {
+      display: none;
+    }
+
+    #scanBtn {
+      display: none;
+    }
+
+    #status {
+      margin-top: 8px;
+      font-size: 12px;
+      color: green;
     }
   </style>
 </head>
 <body>
+
   <h3>AutoFiller</h3>
+
   <div id="login-section">
-    <input type="email" id="email" placeholder="Email" style="width: 100%; margin-bottom: 5px;" />
-    <input type="password" id="password" placeholder="Password" style="width: 100%; margin-bottom: 5px;" />
-    <button id="loginBtn" style="margin-bottom: 10px;">Login</button>
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+    <button id="loginBtn">Login</button>
   </div>
-  <hr />
+
+  <div id="profile-section">
+    <select id="profileSelect" style="width: 100%; margin-bottom: 10px;"></select>
+    
+    <hr>
+
+    <h4>Create Profile</h4>
+
+    <input type="text" id="profileName" placeholder="Profile name" style="width:100%; margin-bottom:5px;">
+
+    <input type="text" id="fieldKey" placeholder="Field key (example: full_name)" style="width:100%; margin-bottom:5px;">
+
+    <input type="text" id="fieldValue" placeholder="Field value" style="width:100%; margin-bottom:5px;">
+
+    <button id="addFieldBtn">Add Field</button>
+
+    <div id="fieldsPreview" style="font-size:12px; margin-top:5px;"></div>
+
+    <button id="createProfileBtn">Create Profile</button>
+
+    <hr>
+  </div>
+
   <button id="scanBtn">Scan Form</button>
-  <div id="status" style="margin-top: 10px; font-size: 12px; color: green;"></div>
+  <button id="logoutBtn" style="display:none; background-color:#d9534f;">Logout</button>
+
+  <div id="status"></div>
+
   <script src="popup.js"></script>
+
 </body>
 </html>

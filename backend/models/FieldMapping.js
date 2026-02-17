@@ -19,6 +19,7 @@ const fieldMappingSchema = mongoose.Schema({
 });
 
 fieldMappingSchema.index({ userId: 1 });
+fieldMappingSchema.index({ userId: 1, form_label: 1 }, { unique: true });
 
 const FieldMapping = mongoose.model('FieldMapping', fieldMappingSchema);
 

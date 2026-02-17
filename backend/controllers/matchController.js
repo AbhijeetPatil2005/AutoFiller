@@ -12,8 +12,17 @@ const matchFields = asyncHandler(async (req, res) => {
         throw new Error('Please provide an array of labels');
     }
 
-    // 1. Get the logged-in user's profile
-    const profile = await Profile.findOne({ userId: req.user.id });
+    // 1. Get the logged-in user's active profile
+    const profile = await Profile.findOne({ 
+        userId: req.user.id,
+        isActive: true 
+    });
+
+    if (profile) {
+        console.log("AutoFiller: Active profile:", profile.profile_name);
+    } else {
+        console.log("AutoFiller: No active profile found");
+    }
 
     if (!profile || !profile.data) {
         return res.json({}); // No profile or data found, return empty match
@@ -37,9 +46,17 @@ const matchFields = asyncHandler(async (req, res) => {
         // Priority 1: Check explicit mapping
         if (mappingLookup[normalizedLabel]) {
             const mappedKey = mappingLookup[normalizedLabel];
+            
             if (profile.data.has(mappedKey)) {
-                matches[label] = profile.data.get(mappedKey);
-                return; // Match found, skip keyword search
+                const mappedValue = profile.data.get(mappedKey);
+
+                // Validation: ensure mapping key is relevant to label
+                const normalizedMappedKey = mappedKey.replace(/_/g, ' ').toLowerCase();
+
+                if (normalizedLabel.includes(normalizedMappedKey)) {
+                    matches[label] = mappedValue;
+                    return;
+                }
             }
         }
 

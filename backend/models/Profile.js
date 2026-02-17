@@ -14,6 +14,10 @@ const profileSchema = mongoose.Schema({
         type: Map,
         of: String,
         required: true
+    },
+    isActive: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true
